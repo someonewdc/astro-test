@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from "astro/config";
+import node from "@astrojs/node";
 
 import preact from "@astrojs/preact";
 
@@ -7,4 +8,8 @@ import preact from "@astrojs/preact";
 export default defineConfig({
   site: "https://example.com",
   integrations: [preact()],
+  output: "server",
+  adapter: node({
+    mode: "standalone",
+  }),
 });
