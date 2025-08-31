@@ -1,9 +1,105 @@
 ---
+import { actions, isInputError } from 'astro:actions';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Greeting from '../components/Greeting';
 const pageTitle = "Home Page";
+const variant = Astro.locals.abVariant;
+
+// const result = Astro.getActionResult(actions.submitForm);
+// const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 ---
 <BaseLayout pageTitle={pageTitle}>
-  <h2>My awesome blog subtitle</h2>
+  {variant === 'A' && <h2>My awesome blog subtitle A</h2>}
+  {variant === 'B' && <h2>My awesome blog subtitle B</h2>}
   <Greeting client:load messages={["Hej", "Hallo", "Hola", "Habari"]} />
+
+  <!-- <form action={actions.submitForm} method="POST">
+    <div class="form-group">
+      <label for="name">Ваше имя:</label>
+      <input type="text" id="name" name="name" required />
+      {inputErrors.name && <p class="error-text">{inputErrors.name}</p>}
+    </div>
+    <div class="form-group">
+      <label for="email">Ваш Email:</label>
+      <input type="email" id="email" name="email" required />
+      {inputErrors.email && <p class="error-text">{inputErrors.email}</p>}
+    </div>
+    <div class="form-group">
+      <label for="message">Сообщение:</label>
+      <textarea id="message" name="message" rows="4" required></textarea>
+      {inputErrors.message && <p class="error-text">{inputErrors.message}</p>}
+    </div>
+    <button type="submit">Отправить</button>
+  </form>
+
+  {result?.data && <div class="success">{result.data.message}</div>}
+      {result?.error && !isInputError(result.error) && <div class="error">{result.error.message}</div>} -->
 </BaseLayout>
+
+<!-- <style>
+  .error-text {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+  .success, .error {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 4px;
+  }
+  .success {
+    background-color: #d1fae5;
+    color: #065f46;
+  }
+  .error {
+    background-color: #fee2e2;
+    color: #991b1b;
+  }
+</style> -->
+
+<!-- <script>
+  import { actions, isInputError } from 'astro:actions';
+
+  const form = document.querySelector<HTMLFormElement>('form')!;
+  const mainEl = document.querySelector('main');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+
+    // Удаляем старые сообщения об ошибках
+    document.querySelectorAll('.error-text, .success, .error').forEach(el => el.remove());
+
+    // 🚀 Вот и вся магия! Вызываем Action как обычную функцию.
+    const result = await actions.submitForm(formData);
+
+    if (result.error) {
+      // Если есть ошибка...
+      if (isInputError(result.error)) {
+        // ...и это ошибка валидации, показываем ее под полями
+        for (const [field, errors] of Object.entries(result.error.fields)) {
+          const input = form.querySelector(`[name="${field}"]`)!;
+          const errorEl = document.createElement('p');
+          errorEl.classList.add('error-text');
+          errorEl.textContent = errors.join(', ');
+          input.parentElement!.append(errorEl);
+        }
+      } else {
+        // ...иначе это общая ошибка сервера
+        const errorEl = document.createElement('div');
+        errorEl.classList.add('error');
+        errorEl.textContent = result.error.message;
+        mainEl!.append(errorEl);
+      }
+      return;
+    }
+
+    // Если все успешно...
+    const successEl = document.createElement('div');
+    successEl.classList.add('success');
+    successEl.textContent = result.data.message;
+    mainEl!.append(successEl);
+    form.reset();
+  });
+</script> -->
