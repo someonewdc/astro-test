@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  astro_app:
+    build: ./astro-app
+    restart: always
+    expose:
+      - "443"
+
+  nginx:
+    build:
+      context: ./nginx
+    restart: always
+    depends_on:
+      - astro_app
