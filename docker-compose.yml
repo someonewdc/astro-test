@@ -8,8 +8,7 @@ services:
       - "443"
 
   nginx:
-    build:
-      context: ./nginx
+    image: nginx:1.25-alpine
     restart: always
     depends_on:
       - astro_app
