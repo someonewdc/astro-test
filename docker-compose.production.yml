@@ -7,5 +7,6 @@ services:
       - "443:443"
     volumes:
       - ./nginx/conf/production.conf:/etc/nginx/conf.d/default.conf
-      - /etc/letsencrypt:/etc/letsencrypt
+      - /etc/letsencrypt:/etc/letsencrypt:ro
       - /etc/letsencrypt/ssl-dhparams.pem:/etc/letsencrypt/ssl-dhparams.pem
+      - astro_static:/var/www/html/static:ro
