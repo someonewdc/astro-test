@@ -1,14 +1,20 @@
-version: "3.8"
-
 services:
   astro_app:
     build: ./astro-app
     restart: always
     expose:
-      - "443"
+      - "4321"
+    networks:
+      - astro-net
 
   nginx:
     image: nginx:1.25-alpine
     restart: always
     depends_on:
       - astro_app
+    networks:
+      - astro-net
+
+networks:
+  astro-net:
+    driver: bridge

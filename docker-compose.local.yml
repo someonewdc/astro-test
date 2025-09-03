@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   astro_app:
     command: sh -c "cp -r /app/dist/client/. /app/static_assets/ && node /app/dist/server/entry.mjs"
