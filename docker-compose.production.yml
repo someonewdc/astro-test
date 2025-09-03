@@ -16,3 +16,6 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt:ro
       - /etc/letsencrypt/ssl-dhparams.pem:/etc/letsencrypt/ssl-dhparams.pem
       - astro_static:/var/www/html/static:ro
+
+volumes:
+  astro_static:
